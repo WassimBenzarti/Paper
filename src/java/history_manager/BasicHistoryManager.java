@@ -16,8 +16,8 @@ public interface BasicHistoryManager<T extends Cloneable> {
     boolean canGoBackward();
     boolean canGoForward();
     
-    void goBack();
-    void goForward();
+    void goBack()throws Exception ;
+    void goForward()throws Exception ;
     
     void save();
     void set(T object);

@@ -1,37 +1,37 @@
 package history_manager;
 
-import article.Article;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class Originator {
+class Originator<T extends Cloneable> {
 
-    private Article state;
+    private T state;
 
-    public void set(Article str) {
+    public void set(T str) {
         this.state = str;
     }
-    
-    public Article getState(){
-        return (Article) this.state.clone();
-    }
-    
-    public Memento save(){
-        return new Memento(this.state);
-    }
-    
-    public void rollback(Memento state){
-        this.state=state.article;
+
+    public T getState() throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        Method method = Object.class.getDeclaredMethod("clone");
+        method.setAccessible(true);
+        return (T) method.invoke(this.state);
     }
 
-    public static class Memento{
+    public Memento<T> save() {
+        return new Memento<>(this.state);
+    }
 
-        private final Article article;
+    public void rollback(Memento<T> state) {
+        this.state = state.object;
+    }
 
-        public Memento(Article text) {
-            this.article = text;
+    public static class Memento<T> {
+        private final T object;
+        public Memento(T text) {
+            this.object = text;
         }
-        
     }
 
 }

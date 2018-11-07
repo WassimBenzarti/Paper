@@ -55,7 +55,7 @@ public class ListNavigatorImpl implements ListNavigator {
 
     @Override
     public boolean isLast() {
-        return this.cursor == this.list.size()-1;
+        return this.cursor == this.list.size() - 1;
     }
 
     @Override
@@ -64,16 +64,19 @@ public class ListNavigatorImpl implements ListNavigator {
     }
 
     @Override
-    public void goFroward() {
-        if(this.cursor +1 >this.list.size()-1 ){
-            
+    public void goForward() throws Exception {
+        if (this.cursor + 1 > this.list.size() - 1) {
+            throw new Exception("Cannot go forward anymore");
         }
-        return this.cursor+1;
+        this.cursor++;
     }
 
     @Override
-    public void goBackward() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void goBackward() throws Exception {
+        if (this.cursor==0) {
+            throw new Exception("Cannot go backward anymore");
+        }
+        this.cursor--;
     }
 
 }

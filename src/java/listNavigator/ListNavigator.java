@@ -19,8 +19,8 @@ public interface ListNavigator {
 
     boolean isFirst();
 
-    void goFroward();
+    void goForward() throws Exception;
 
-    void goBackward();
+    void goBackward() throws Exception;
 
 }

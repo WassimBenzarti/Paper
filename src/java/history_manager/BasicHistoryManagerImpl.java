@@ -18,7 +18,7 @@ import listNavigator.ListNavigatorImpl;
 public class BasicHistoryManagerImpl<T extends Cloneable> implements BasicHistoryManager<T> {
 
     private List<Originator.Memento> versions = new ArrayList<>();
-    private Originator originator = new Originator();
+    private Originator originator = new Originator<T>();
     private ListNavigator navigator = new ListNavigatorImpl(versions);
 
     @Override
@@ -32,13 +32,13 @@ public class BasicHistoryManagerImpl<T extends Cloneable> implements BasicHistor
     }
 
     @Override
-    public void goBack() {
-        navigator.goBack();
+    public void goBack() throws Exception{
+        navigator.goBackward();
         originator.rollback(versions.get(navigator.getPosition()));
     }
 
     @Override
-    public void goForward() {
+    public void goForward() throws Exception {
         navigator.goForward();
     }
 
